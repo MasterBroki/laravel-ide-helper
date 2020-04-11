@@ -202,8 +202,8 @@ class ModelsCommand extends Command
                         $this->getPropertiesFromTable($model);
                     }
 
-                    if (trait_exists ('App\Models\Traits\ResourceManagement') &&
-                        class_uses('App\Models\Traits\ResourceManagement')) {
+                    if (trait_exists('App\Models\Traits\ResourceManagement') &&
+                        isset(class_uses($model)['App\Models\Traits\ResourceManagement'])) {
                         $this->getFromResources($model);
                     }
 
@@ -401,8 +401,7 @@ class ModelsCommand extends Command
                 $snake = $caseConverter->convert($resource)->toSnake();
                 $this->setMethod($camel . "AbsolutePath",'string');
                 $this->setMethod($camel . "StoragePath",'string');
-                $this->setProperty($snake,'string');
-                $this->setProperty($camel . "_url",'string');
+                $this->setProperty($camel . "_url",'string', true, false);
             }
         }
     }
