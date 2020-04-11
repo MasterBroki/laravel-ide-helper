@@ -154,7 +154,6 @@ class ModelsCommand extends Command
 \n\n";
 
         $hasDoctrine = interface_exists('Doctrine\DBAL\Driver');
-        $hasResourceManagement = class_uses('App\Models\Traits\ResourceManagement');
 
         if (empty($loadModels)) {
             $models = $this->loadModels();
@@ -203,7 +202,8 @@ class ModelsCommand extends Command
                         $this->getPropertiesFromTable($model);
                     }
 
-                    if ($hasResourceManagement) {
+                    if (trait_exists ('App\Models\Traits\ResourceManagement') &&
+                        class_uses('App\Models\Traits\ResourceManagement')) {
                         $this->getFromResources($model);
                     }
 
